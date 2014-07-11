@@ -2,6 +2,34 @@ $max-width : 1280px;
 $body-font-family: "Roboto";
 
 /*
+  Common elements
+*/
+@mixin big-button {
+
+  font-size: 20px;
+  color: rgb( 255, 255, 255 );
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 3;
+  text-align: center;
+  text-shadow: 1.414px 1.414px 0px rgb( 0, 0, 0 );
+
+  -moz-transform: matrix( 2,0,0,2,0,0);
+  -webkit-transform: matrix( 2,0,0,2,0,0);
+  -ms-transform: matrix( 2,0,0,2,0,0);
+
+  @include border-radius(4px);
+  background-image: -moz-linear-gradient( 90deg, rgb(255,48,0) 0%, rgb(255,114,0) 100%);
+  background-image: -webkit-linear-gradient( 90deg, rgb(255,48,0) 0%, rgb(255,114,0) 100%);
+  background-image: -ms-linear-gradient( 90deg, rgb(255,48,0) 0%, rgb(255,114,0) 100%);
+  box-shadow: 1.414px 1.414px 2px 0px rgb( 0, 0, 0 );
+
+  display: inline-block;
+  height: 61px;
+
+}
+
+/*
   Header
 */
 $header-container-height: 81px;
@@ -9,8 +37,6 @@ $header-container-background-color: rgb( 255, 255, 255 );
 $header-box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 $header-container-vertical-padding : 20px;
 $header-height : ($header-container-height - $header-container-vertical-padding);
-
-
 @mixin header-container {
 
   height: $header-container-height;
@@ -40,7 +66,6 @@ $header-height : ($header-container-height - $header-container-vertical-padding)
 $header-menu-font-size: 14px;
 $header-menu-color: #7e7e7e;
 $header-menu-color-hover: #c6002a;
-
 @mixin header-menu {
 
   ul {
@@ -94,7 +119,6 @@ $block-title-line-height: 1;
 $block-title-color: rgb( 0, 0, 0 );
 $block-title-font-weight: bold;
 $block-title-text-align: center;
-
 @mixin block-title {
   font-size: $block-title-font-size;
   line-height: $block-title-line-height;
@@ -167,6 +191,8 @@ $block-title-text-align: center;
 /*
   Proposals list
 */
+$proposals-list-delimiter-width: 20px;
+
 @mixin proposals-list-item-price {
 
   height: 12px;
@@ -201,28 +227,54 @@ $block-title-text-align: center;
 
 }
 
-@mixin big-button {
+/*
+  Media items list
+*/
+$media-list-delimiter-width: 20px;
+$media-list-item-image-width: 300px;
+$media-list-item-image-height: 150px;
+$media-list-item-font-size: 14px;
+$media-list-item-line-height: 1.429;
+$media-list-item-text-align: left;
+$media-list-item-text-color: rgb( 0, 0, 0 );
 
-  font-size: 20px;
-  color: rgb( 255, 255, 255 );
-  font-weight: bold;
-  text-transform: uppercase;
-  line-height: 3;
-  text-align: center;
-  text-shadow: 1.414px 1.414px 0px rgb( 0, 0, 0 );
+/*
+  Information items list
+*/
+$info-list-item-title-font-size: 20px;
+$info-list-item-title-font-weight: bold;
+$info-list-item-title-text-transform: uppercase;
+$info-list-item-title-padding: 20px 0;
+$info-list-item-font-size: 14px;
+$info-list-item-font-weight: normal;
+$info-list-item-line-height: 1.429;
+$info-list-item-text-align: center;
+$info-list-item-image-wrapper-border-width: 5px;
+$info-list-item-image-wrapper-border-color: rgb( 255, 255, 255 );
+$info-list-item-image-wrapper-border-style: solid;
+$info-list-item-image-wrapper-border-radius: 75px;
+$info-list-item-image-wrapper-width: 140px;
+$info-list-item-image-wrapper-height: 140px;
+$info-list-item-image-wrapper-margin: 20px auto;
 
-  -moz-transform: matrix( 2,0,0,2,0,0);
-  -webkit-transform: matrix( 2,0,0,2,0,0);
-  -ms-transform: matrix( 2,0,0,2,0,0);
+$info-list-small-item-title-font-size: 14px;
+$info-list-small-item-title-font-weight: bold;
+$info-list-small-item-title-text-transform: uppercase;
+$info-list-small-item-title-padding: 10px 0;
+$info-list-small-item-image-wrapper-border-width: 2px;
+$info-list-small-item-image-wrapper-border-color: rgb( 0, 0, 0 );
+$info-list-small-item-image-wrapper-border-style: solid;
+$info-list-small-item-image-wrapper-border-radius: 29px;
+$info-list-small-item-image-wrapper-width: 60px;
+$info-list-small-item-image-wrapper-height: 60px;
+$info-list-small-item-image-wrapper-margin: 10px auto;
 
-  @include border-radius(4px);
-  background-image: -moz-linear-gradient( 90deg, rgb(255,48,0) 0%, rgb(255,114,0) 100%);
-  background-image: -webkit-linear-gradient( 90deg, rgb(255,48,0) 0%, rgb(255,114,0) 100%);
-  background-image: -ms-linear-gradient( 90deg, rgb(255,48,0) 0%, rgb(255,114,0) 100%);
-  box-shadow: 1.414px 1.414px 2px 0px rgb( 0, 0, 0 );
+/*
+  Blocks
+*/
+$block-container-padding: 70px 0;
+@mixin block-container {
 
-  display: inline-block;
-  height: 61px;
+  padding: $block-container-padding;
 
 }
-
