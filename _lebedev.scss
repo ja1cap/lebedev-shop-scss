@@ -14,35 +14,36 @@ $body-font-family: "Roboto";
   text-align: center;
   text-shadow: 1.414px 1.414px 0px rgb( 0, 0, 0 );
 
-  -moz-transform: matrix( 2,0,0,2,0,0);
-  -webkit-transform: matrix( 2,0,0,2,0,0);
-  -ms-transform: matrix( 2,0,0,2,0,0);
-
+  @include background-image(linear-gradient(rgb(255,48,0), rgb(255,114,0)));
   @include border-radius(4px);
-  background-image: -moz-linear-gradient( 90deg, rgb(255,48,0) 0%, rgb(255,114,0) 100%);
-  background-image: -webkit-linear-gradient( 90deg, rgb(255,48,0) 0%, rgb(255,114,0) 100%);
-  background-image: -ms-linear-gradient( 90deg, rgb(255,48,0) 0%, rgb(255,114,0) 100%);
-  box-shadow: 1.414px 1.414px 2px 0px rgb( 0, 0, 0 );
+  @include box-shadow(1.414px 1.414px 2px 0px rgb( 0, 0, 0 ));
 
   display: inline-block;
-  height: 61px;
+  height: 60px;
+  padding: 0 30px;
 
 }
 
 /*
   Header
 */
-$header-container-height: 81px;
+$header-container-height: 80px;
 $header-container-background-color: rgb( 255, 255, 255 );
 $header-box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 $header-container-vertical-padding : 20px;
-$header-height : ($header-container-height - $header-container-vertical-padding);
+$header-inner-height : ($header-container-height - $header-container-vertical-padding);
+$header-image-height : $header-inner-height;
+
+$header-dropdown-color : rgb(255,255,255);
+$header-dropdown-background : rgb(0,7,38);
+$header-dropdown-item-font-size : 16px;
+$header-dropdown-item-hover-color : rgb(0,0,0);
+$header-dropdown-item-hover-background : rgb(255,231,0);
+
 @mixin header-container {
 
-  height: $header-container-height;
   background-color: $header-container-background-color;
   box-shadow: $header-box-shadow;
-  padding: ($header-container-vertical-padding/2) 0;
 
   z-index: 100;
   position: fixed;
@@ -54,10 +55,43 @@ $header-height : ($header-container-height - $header-container-vertical-padding)
   @include transition-duration(150ms);
   @include transition-timing-function(linear);
 
+  .header-logo {
+
+    padding: ($header-container-vertical-padding/2) 0;
+    @include transition-property(all);
+    @include transition-duration(150ms);
+    @include transition-timing-function(linear);
+
+  }
+
+
   &.affix {
 
-    height: $header-height;
-    padding: 0;
+    .header-logo {
+      padding: 0;
+    }
+
+    .header-menu {
+
+      ul.header-menu-list {
+
+        & > li {
+
+          & > a {
+
+            padding: 22px 18px 18px;
+
+          }
+
+          .dropdown {
+            top: $header-inner-height;
+          }
+
+        }
+
+      }
+
+    }
 
   }
 
@@ -68,22 +102,36 @@ $header-menu-color: #7e7e7e;
 $header-menu-color-hover: #c6002a;
 @mixin header-menu {
 
-  ul {
+  ul.header-menu-list {
 
     @extend .clearfix;
 
-    li {
+    margin-bottom: 0;
+
+    & > li {
 
       padding: 0;
-      margin: 1px 0 0;
+      margin: 0;
       display: inline-block;
       position: relative;
       float: left;
 
-      a {
+      &:hover {
+
+        .dropdown {
+          display: block;
+        }
+
+      }
+
+      & > a {
+
+        @include transition-property(all);
+        @include transition-duration(150ms);
+        @include transition-timing-function(linear);
 
         display: block;
-        padding: 18px;
+        padding: 32px 18px 28px;
 
         font-size: $header-menu-font-size;
         color: $header-menu-color;
@@ -93,7 +141,11 @@ $header-menu-color-hover: #c6002a;
           border-bottom: 2px solid transparent;
         }
 
-        &:hover {
+      }
+
+      &:hover {
+
+        & > a {
 
           color: $header-menu-color-hover;
 
@@ -109,22 +161,78 @@ $header-menu-color-hover: #c6002a;
 
   }
 
+  .dropdown {
+
+    display: none;
+    
+    @include transition-property(all);
+    @include transition-duration(150ms);
+    @include transition-timing-function(linear);
+    @include box-shadow(5px 5px 10px rgba(0,0,0,.1));
+
+    top: $header-container-height;
+    left: 0;
+    position: absolute;
+    background: rgb(0,7,38);
+
+    & > ul {
+
+      margin: 0;
+
+      & > li {
+
+        padding: 0;
+
+        & > a {
+
+          display: block;
+          padding: 15px 20px;
+          color: $header-dropdown-color;
+          line-height: $header-dropdown-item-font-size;
+          font-size: $header-dropdown-item-font-size;
+
+        }
+
+        &:hover {
+
+          background: $header-dropdown-item-hover-background;
+
+          & > a {
+            color: $header-dropdown-item-hover-color;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
 }
 
 /*
-  Block
+  Blocks
 */
 $block-title-font-size: 30px;
 $block-title-line-height: 1;
-$block-title-color: rgb( 0, 0, 0 );
 $block-title-font-weight: bold;
 $block-title-text-align: center;
+$block-title-text-transform: uppercase;
 @mixin block-title {
   font-size: $block-title-font-size;
   line-height: $block-title-line-height;
-  color: $block-title-color;
   font-weight: $block-title-font-weight;
   text-align: $block-title-text-align;
+  text-transform: $block-title-text-transform;
+}
+
+$block-container-padding: 50px 0;
+@mixin block-container {
+
+  position: relative;
+  padding: $block-container-padding;
+
 }
 
 /*
@@ -139,21 +247,29 @@ $block-title-text-align: center;
 
   a {
 
-    width: 100%;
-    position: relative;
+    display: block;
+    padding: 5px 25px;
     font-size: 16px;
     color: rgb( 0, 118, 181 );
     font-weight: bold;
     line-height: 1.875;
     text-align: center;
 
-    &:after {
-      border: 2px dotted rgb( 0, 118, 181 );
-      position: absolute;
-      left: 0px;
-      bottom: 0px;
-      width: 100%;
-      height: 0px;
+    span {
+
+      position: relative;
+
+      &:after {
+        content: ' ';
+        display: block;
+        border: 1px dotted rgb( 0, 118, 181 );
+        position: absolute;
+        left: 0px;
+        bottom: -3px;
+        width: 100%;
+        height: 0px;
+
+      }
 
     }
 
@@ -161,13 +277,25 @@ $block-title-text-align: center;
 
   &.active {
 
-    border-radius: 2px;
-    background-image: -moz-linear-gradient( 90deg, rgb(145,220,0) 0%, rgb(28,169,0) 100%);
-    background-image: -webkit-linear-gradient( 90deg, rgb(145,220,0) 0%, rgb(28,169,0) 100%);
-    background-image: -ms-linear-gradient( 90deg, rgb(145,220,0) 0%, rgb(28,169,0) 100%);
-
     a {
+
+      border-radius: 2px;
+      background-image: -moz-linear-gradient( 90deg, rgb(145,220,0) 0%, rgb(28,169,0) 100%);
+      background-image: -webkit-linear-gradient( 90deg, rgb(145,220,0) 0%, rgb(28,169,0) 100%);
+      background-image: -ms-linear-gradient( 90deg, rgb(145,220,0) 0%, rgb(28,169,0) 100%);
       color: rgb( 255, 255, 255 );
+      @include box-shadow(inset 1.414px 1.414px 2px 0px rgba(0, 0, 0, 0.6));
+
+      span {
+
+        position: relative;
+
+        &:after {
+          display: none;
+        }
+
+      }
+
     }
 
   }
@@ -177,9 +305,9 @@ $block-title-text-align: center;
 @mixin tabs {
 
   display: block;
-  height: 41px;
+  height: 40px;
   padding: 0;
-  margin: 0;
+  margin: 15px 0;
   text-align: center;
 
   li {
@@ -192,40 +320,13 @@ $block-title-text-align: center;
   Proposals list
 */
 $proposals-list-delimiter-width: 20px;
-
-@mixin proposals-list-item-price {
-
-  height: 12px;
-  font-size: 14px;
-  color: rgb( 0, 0, 0 );
-  font-weight: bold;
-  line-height: 1.429;
-  text-align: center;
-
-}
-
-@mixin proposals-list-item-title {
-
-  font-size: 14px;
-  color: rgb( 0, 0, 0 );
-  line-height: 1.429;
-  text-align: center;
-
-}
-
-@mixin proposals-list-item-image-wrapper {
-
-  border: 1px solid rgb( 202, 202, 202 );
-  background-color: rgb( 255, 255, 255 );
-  width: 220px;
-  height: 220px;
-
-  img {
-    width: 220px;
-    height: 220px;
-  }
-
-}
+$proposals-list-item-width: 220px;
+$proposals-list-item-height: 340px;
+$proposals-list-item-image-container-border-width: 1px;
+$proposals-list-item-image-container-width: 220px;
+$proposals-list-item-image-container-height: 220px;
+$proposals-list-item-image-width: ($proposals-list-item-image-container-width - ($proposals-list-item-image-container-border-width * 2));
+$proposals-list-item-image-height: ($proposals-list-item-image-container-height - ($proposals-list-item-image-container-border-width * 2));
 
 /*
   Media items list
@@ -268,13 +369,3 @@ $info-list-small-item-image-wrapper-border-radius: 29px;
 $info-list-small-item-image-wrapper-width: 60px;
 $info-list-small-item-image-wrapper-height: 60px;
 $info-list-small-item-image-wrapper-margin: 10px auto;
-
-/*
-  Blocks
-*/
-$block-container-padding: 70px 0;
-@mixin block-container {
-
-  padding: $block-container-padding;
-
-}
